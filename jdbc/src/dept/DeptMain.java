@@ -8,7 +8,9 @@ public class DeptMain {
 		boolean run = true;
 		Scanner sc= new Scanner(System.in);
 		while(run) {
-			
+			System.out.println("**********************");
+			System.out.println("1. 전체부서 조회");
+			System.out.println("2. 특정부서 조회");
 		}
 
 	}
