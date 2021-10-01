@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class DeptDAO {
 	static {
 		try {
@@ -65,18 +63,18 @@ public class DeptDAO {
 		return list;
 	}
 
-	public void getRow(int deptno) {
+	public void getRow(int deptNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con=getConnection();
-			String sql="select * from dept_temp where deptno= ? ";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, deptno);
+			con = getConnection();
+			String sql = "select * from dept_temp where deptNo= ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, deptNo);
 			rs = pstmt.executeQuery();
 			DeptDTO dto = null;
-			if(rs.next()) {
+			if (rs.next()) {
 				dto = new DeptDTO();
 				dto.setDeptNo(rs.getInt(1));
 				dto.setDname(rs.getString(2));
@@ -92,29 +90,29 @@ public class DeptDAO {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			
-			
+
 		}
 	}
+
 	public boolean insert(DeptDTO dto) {
-		boolean flag=false;
-		
+		boolean flag = false;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con=getConnection();
-			String sql="insert into dept_temp(deptno,dname,loc) values(?,?,?)";
-			pstmt=con.prepareStatement(sql);
+			con = getConnection();
+			String sql = "insert into dept_temp(deptno,dname,loc) values(?,?,?)";
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, dto.getDeptNo());
 			pstmt.setString(2, dto.getDname());
 			pstmt.setString(3, dto.getLoc());
 			int result = pstmt.executeUpdate();
-			if(result >0) {
+			if (result > 0) {
 				flag = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				pstmt.close();
 				con.close();
@@ -124,30 +122,56 @@ public class DeptDAO {
 			return flag;
 		}
 	}
-	
-	public boolean update(String dname,int deptNo) {
+
+	public boolean update(String dname, int deptNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean flag=false;
+		boolean flag = false;
 		try {
-			con=getConnection();
-			String sql="update dept_temp set dname= ? where deptno =?";
+			con = getConnection();
+			String sql = "update dept_temp set dname= ? where deptno =?";
 			pstmt.setString(1, dname);
 			pstmt.setInt(2, deptNo);
 			int result = pstmt.executeUpdate();
-			if(result>0) {
-				flag=true;
+			if (result > 0) {
+				flag = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				pstmt.close();
 				con.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-		}return flag;
+		}
+		return flag;
+	}
+
+	public boolean delete(int deptNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean flag = false;
+		try {
+			con = getConnection();
+			String sql = "delete from dept_temp where deptNo=?";
+			pstmt.setInt(1, deptNo);
+			int result = pstmt.executeUpdate();
+			if (result > 0) {
+				flag = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return flag;
 	}
 
 }
