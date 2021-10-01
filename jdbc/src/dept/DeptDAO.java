@@ -63,17 +63,17 @@ public class DeptDAO {
 		return list;
 	}
 
-	public void getRow(int deptNo) {
+	public DeptDTO getRow(int deptNo) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		DeptDTO dto = null;
 		try {
 			con = getConnection();
 			String sql = "select * from dept_temp where deptNo= ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, deptNo);
 			rs = pstmt.executeQuery();
-			DeptDTO dto = null;
 			if (rs.next()) {
 				dto = new DeptDTO();
 				dto.setDeptNo(rs.getInt(1));
@@ -92,6 +92,7 @@ public class DeptDAO {
 			}
 
 		}
+		return dto;
 	}
 
 	public boolean insert(DeptDTO dto) {
@@ -130,6 +131,7 @@ public class DeptDAO {
 		try {
 			con = getConnection();
 			String sql = "update dept_temp set dname= ? where deptno =?";
+			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, dname);
 			pstmt.setInt(2, deptNo);
 			int result = pstmt.executeUpdate();
@@ -156,6 +158,7 @@ public class DeptDAO {
 		try {
 			con = getConnection();
 			String sql = "delete from dept_temp where deptNo=?";
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, deptNo);
 			int result = pstmt.executeUpdate();
 			if (result > 0) {
