@@ -11,6 +11,7 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -75,7 +76,7 @@ public class MyFrame5 extends JFrame implements ActionListener  {
 				jtf3.setText(null);
 			}
 		} catch (Exception e2) {
-			System.out.println("다시 입력하세요");
+			JOptionPane.showMessageDialog(getParent(), "입력값을 확인해 주세요.");
 		}
 		
 	}
