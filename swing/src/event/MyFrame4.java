@@ -38,7 +38,8 @@ public class MyFrame4 extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd=e.getActionCommand();
 		if(cmd.equals("³ë¶û")) {
-			container.setBackground(Color.YELLOW);
+			new MyFrame5();
+			setVisible(false);
 		}else {
 			container.setBackground(Color.RED);
 		}
